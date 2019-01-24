@@ -65,7 +65,7 @@ def four_point_transform(image, pts):
 	return warped
 
 while True:
-    image = getImage()
+	image = getImage()
 
     # retval, K, D, rvecs, tvecs	=	cv.fisheye.calibrate(objectPoints, imagePoints, image_size, K, D[, rvecs[, tvecs[, flags[, criteria]]]]	)
 

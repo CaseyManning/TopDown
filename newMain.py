@@ -3,8 +3,8 @@ import numpy as np
 from transform import transformImage
 import sys
 
-live = False;
-robotImg = cv2.imread('robot.png')
+live = True;
+robotImage = cv2.imread('robot.png')
 robotHeight, robotWidth, channels = robotImage.shape
 
 if live:
@@ -26,8 +26,9 @@ def getImage(cam):
 	retval, image = cam.read()
 	return image
 
-def compositeImages(im1, im2, im3, im4):
-	fail
+def putTogetherImages(i1, i2, i3, i4):
+	p1 = np.concatenate((i1, robotImage), axis=0)
+	return np.concatenate((p1, i2), axis=0)
 
 while True:
 	if live:
@@ -45,24 +46,15 @@ while True:
 
 	warp1 = cv2.flip(transformImage(image1), 1)
 	warp2 = cv2.flip(cv2.flip(transformImage(image2), 1), 0)
-
-	# stitcher = cv2.createStitcher()
-	# try:
-	# 	(status, stitched) = stitcher.stitch([warp, warp2])
-	# except:
-	# 	print('Uah Uoh')
-	# 	continue
-	#
-	# print(status)
-	# if status == 0:
-	# 	cv2.imshow('stitched', stitched)
-
-	# cv2.imshow('Original1', cv2.resize(image, (480, 270)))
-	# cv2.imshow('Original2', cv2.resize(image2, (480, 270)))
 	cv2.imshow('Transformed', cv2.flip(warp1, 1))
 	cv2.imshow('Transformed2', cv2.flip(warp2, 1))
-	together = np.concatenate((warp1, warp2), axis=0)
-	cv2.imshow('together',cv2.resize(together, (350, 1000)))
+
+	cv2.imshow('Transformed', cv2.flip(warp1, 1))
+	cv2.imshow('Transformed2', cv2.flip(warp2, 1))
+
+	together = putTogetherImages(warp1, warp2, image3, image4)
+
+	cv2.imshow('together',cv2.resize(together, (350, 800)))
 
 	key = cv2.waitKey(10)
 	if key == 27:

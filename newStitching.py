@@ -7,8 +7,8 @@ n = 0
 maxWidth = 700
 maxHeight = 1000
 
-camera = cv2.VideoCapture(0)
-camera2 = cv2.VideoCapture(1)
+camera = cv2.VideoCapture(1)
+camera2 = cv2.VideoCapture(2)
 
 def getImage():
 	retval, image = camera.read()
